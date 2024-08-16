@@ -43,7 +43,7 @@ class MyHomePageState extends State<MyHomePage> {
   int _currentIndex = 0;
 
   final List<Widget> _children = const [
-    HomeScreen(),
+    ContactScreen(),
     SettingsScreen(),
   ];
 
@@ -103,15 +103,83 @@ class MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class ContactScreen extends StatelessWidget {
+  const ContactScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text(
-        'This is material App',
-        style: TextStyle(fontSize: 18),
+    final List<Map<String, String>> contacts = [
+      {'name': 'William Core', 'phone': '+62 812 3456 7890'},
+      {'name': 'Tom Odell', 'phone': '+62 812 9876 5432'},
+      {'name': 'David Garret', 'phone': '+62 812 1111 2222'},
+      {'name': 'Nick Strand', 'phone': '+62 811 2222 3333'},
+      {'name': 'Alice Steelheart', 'phone': '+62 811 2233 4433'},
+      {'name': 'Alex Carpenter', 'phone': '+62 811 3322 3333'},
+      {'name': 'James Arthur', 'phone': '+62 811 2332 3333'},
+      {'name': 'Ina Wroldsen', 'phone': '+62 811 3232 3333'},
+      {'name': 'Lana Del Rey', 'phone': '+62 811 2323 3333'},
+      {'name': 'Vian Izak', 'phone': '+62 811 2333 3333'},
+      {'name': 'Dean Lewis', 'phone': '+62 811 2222 3222'},
+      {'name': 'Axel Johansson', 'phone': '+62 811 2223 3333'},
+      {'name': 'Trevor Daniel', 'phone': '+62 811 2322 3333'},
+      {'name': 'Bill Conti', 'phone': '+62 811 3332 3333'},
+      {'name': 'Isak Danielson', 'phone': '+62 811 2222 3232'},
+    ];
+
+    contacts.sort((a, b) => a['name']!.compareTo(b['name']!));
+
+    return ListView(
+      children: contacts.map((contact) {
+        return ContactItem(
+          name: contact['name']!,
+          phone: contact['phone']!,
+        );
+      }).toList(),
+    );
+  }
+}
+
+class ContactItem extends StatelessWidget {
+  final String name;
+  final String phone;
+
+  const ContactItem({
+    super.key,
+    required this.name,
+    required this.phone,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      child: Row(
+        children: [
+          CircleAvatar(
+            radius: 30,
+            backgroundColor: Colors.grey,
+            child: Text(
+              name[0],
+              style: const TextStyle(fontSize: 24, color: Colors.white),
+            ),
+          ),
+          const SizedBox(width: 20),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                name,
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 5),
+              Text(
+                phone,
+                style: const TextStyle(fontSize: 16),
+              )
+            ],
+          ),
+        ],
       ),
     );
   }
