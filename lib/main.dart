@@ -176,7 +176,7 @@ class ContactItem extends StatelessWidget {
               Text(
                 phone,
                 style: const TextStyle(fontSize: 16),
-              )
+              ),
             ],
           ),
         ],
